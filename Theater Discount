@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int tickets = sc.nextInt();
+        char refreshment = sc.next().charAt(0);
+        char coupon = sc.next().charAt(0);
+        char ticketType = sc.next().charAt(0);
+
+        if (tickets < 5 || tickets > 40) {
+            System.out.println("Minimum of 5 and Maximum of 40 tickets");
+            return;
+        }
+
+        double ticketRate;
+
+        if (ticketType == 'k') {
+            ticketRate = 75;
+        } else if (ticketType == 'q') {
+            ticketRate = 150;
+        } else {
+            System.out.println("Invalid Input");
+            return;
+        }
+
+        double ticketCost = tickets * ticketRate;
+
+        // Bulk booking discount (>20 tickets)
+        if (tickets > 20) {
+            ticketCost -= ticketCost * 0.10;
+        }
+
+        // Coupon discount
+        if (coupon == 'y') {
+            ticketCost -= ticketCost * 0.02;
+        }
+
+        // Refreshment charge
+        double refreshmentCost = 0;
+        if (refreshment == 'y') {
+            refreshmentCost = tickets * 50;
+        }
+
+        double totalCost = ticketCost + refreshmentCost;
+
+        System.out.printf("Ticket cost:%.2f", totalCost);
+    }
+}
